@@ -1,4 +1,5 @@
 ﻿using LowLevelDesign.DesignPattern;
+using LowLevelDesign.DesignPattern.Observer;
 using LowLevelDesign.DesignProblems.NotificationSystem;
 using LowLevelDesign.DesignProblems.NotificationSystem.NotificationPolicy;
 using LowLevelDesign.DesignProblems.NotificationSystem.NotificationTypes;
@@ -28,9 +29,24 @@ public class Program
         //client.Runner();
 
         var serviceProvider = ConfigureServices();
-        var notificationService = serviceProvider.GetRequiredService<NotificationService>();
-        var criticalAlert = new CriticalAlertPolicy();
-        notificationService.NotifyAsync("This is a notification", "I am recipient", criticalAlert).ConfigureAwait(true);
+        //var notificationService = serviceProvider.GetRequiredService<NotificationService>();
+        //var criticalAlert = new CriticalAlertPolicy();
+        //notificationService.NotifyAsync("This is a notification", "I am recipient", criticalAlert).ConfigureAwait(true);
+
+
+        /*Runner for observer pattern*/
+        var observersList = new List<IObserver>
+        {
+            new EmailService(),
+            new AnalyticsService()
+        };
+
+        var userService = new UserService(observersList);
+        
+        
+        
+        userService.Subscribe(new ReferralService());
+        userService.RegisterUser(new User());
     }
 
     public static ServiceProvider ConfigureServices()
@@ -43,6 +59,7 @@ public class Program
 
         services.AddScoped<NotificationService>();
 
+        services.AddScoped<UserService>();
         return services.BuildServiceProvider();
     }
 }

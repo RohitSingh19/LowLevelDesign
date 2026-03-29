@@ -4,6 +4,7 @@ using LowLevelDesign.DesignPattern.Observer;
 using LowLevelDesign.DesignProblems.NotificationSystem;
 using LowLevelDesign.DesignProblems.NotificationSystem.NotificationPolicy;
 using LowLevelDesign.DesignProblems.NotificationSystem.NotificationTypes;
+using LowLevelDesign.DesignProblems.VendingMachine;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -52,9 +53,16 @@ public class Program
 
 
         /*Runner for builder pattern*/
-        var document = new DocumentBuilder().AddHeader("This is the header text").AddParagraph("Para 1").AddParagraph("Para 2").AddFooter("This is the footer text").CreateDocument();
+        //var document = new DocumentBuilder().AddHeader("This is the header text").AddParagraph("Para 1").AddParagraph("Para 2").AddFooter("This is the footer text").CreateDocument();
 
-        Console.WriteLine($"{document.Header} \n {string.Join(" ", document.Paragraph)} \n {document.Footer}");
+        //Console.WriteLine($"{document.Header} \n {string.Join(" ", document.Paragraph)} \n {document.Footer}");
+
+
+
+        /*Runner for Vending Machine: State Design Pattern*/
+
+        Client client = new Client();
+        client.RunVendingMachine();
     }
 
     public static ServiceProvider ConfigureServices()
